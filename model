@@ -1,0 +1,149 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+class University {
+    String name;
+    List<Faculty> faculties;
+
+    University(String name) {
+        this.name = name;
+        this.faculties = new ArrayList<>();
+    }
+}
+
+class Faculty {
+    String name;
+    Dean dean;
+    List<Institute> institutes;
+
+    Faculty(String name) {
+        this.name = name;
+        this.institutes = new ArrayList<>();
+    }
+}
+
+class Institute {
+    String name;
+    String address;
+
+    Institute(String name, String address) {
+        this.name = name;
+        this.address = address;
+    }
+}
+
+class Employee {
+    String socialSecurityNumber;
+    String name;
+    String email;
+
+    Employee(String socialSecurityNumber, String name, String email) {
+        this.socialSecurityNumber = socialSecurityNumber;
+        this.name = name;
+        this.email = email;
+    }
+}
+
+class Dean extends Employee {
+    Dean(String socialSecurityNumber, String name, String email) {
+        super(socialSecurityNumber, name, email);
+    }
+}
+
+class Researcher extends Employee {
+    String researchArea;
+    List<Project> projects;
+
+    Researcher(String socialSecurityNumber, String name, String email, String researchArea) {
+        super(socialSecurityNumber, name, email);
+        this.researchArea = researchArea;
+        this.projects = new ArrayList<>();
+    }
+}
+
+class Project {
+    String name;
+    String startDate;
+    String endDate;
+    int hours;
+
+    Project(String name, String startDate, String endDate, int hours) {
+        this.name = name;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.hours = hours;
+    }
+}
+
+
+
+    public void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Создание объекта университета
+        System.out.println("Enter University name:");
+        String universityName = scanner.nextLine();
+        University university = new University(universityName);
+
+        // Создание объекта факультета
+        System.out.println("Enter Faculty name:");
+        String facultyName = scanner.nextLine();
+        Faculty faculty = new Faculty(facultyName);
+
+        // Создание объекта декана
+        System.out.println("Enter Dean's social security number:");
+        String deanSSN = scanner.nextLine();
+        System.out.println("Enter Dean's name:");
+        String deanName = scanner.nextLine();
+        System.out.println("Enter Dean's email:");
+        String deanEmail = scanner.nextLine();
+        Dean dean = new Dean(deanSSN, deanName, deanEmail);
+
+        // Связывание декана с факультетом
+        faculty.dean = dean;
+
+        // Создание объекта института
+        System.out.println("Enter Institute name:");
+        String instituteName = scanner.nextLine();
+        System.out.println("Enter Institute address:");
+        String instituteAddress = scanner.nextLine();
+        Institute institute = new Institute(instituteName, instituteAddress);
+
+        // Связывание института с факультетом
+        faculty.institutes.add(institute);
+
+        // Создание объекта научного сотрудника (исследователя)
+        System.out.println("Enter Researcher's social security number:");
+        String researcherSSN = scanner.nextLine();
+        System.out.println("Enter Researcher's name:");
+        String researcherName = scanner.nextLine();
+        System.out.println("Enter Researcher's email:");
+        String researcherEmail = scanner.nextLine();
+        System.out.println("Enter Researcher's research area:");
+        String researchArea = scanner.nextLine();
+        Researcher researcher = new Researcher(researcherSSN, researcherName, researcherEmail, researchArea);
+
+        // Создание проекта
+        System.out.println("Enter name of project: ");
+        String projectName = scanner.nextLine();
+        System.out.println("Enter date of start project: ");
+        String startDate = scanner.nextLine();
+        System.out.println("Enter date of end project: ");
+        String endDdate = scanner.nextLine();
+        System.out.println("Enter hours of project: ");
+        int hours = Integer.parseInt(scanner.nextLine());
+        Project project = new Project(projectName, startDate, endDdate, hours);
+        faculty.dean = dean;
+// Связываем институт с факультетом
+        faculty.institutes.add(institute);
+// Связываем научного сотрудника с проектом
+        researcher.projects.add(project);
+
+        // Вывод информации
+        System.out.println("University: " + university.name);
+        System.out.println("Faculty: " + faculty.name);
+        System.out.println("Dean: " + dean.name);
+        System.out.println("Institute: " + institute.name + ", Address: " + institute.address);
+        System.out.println("Project " + "for " + researcher.name + " : " + researcher.projects.get(0).name);
+    }
